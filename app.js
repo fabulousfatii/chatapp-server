@@ -65,7 +65,7 @@ io.use((socket, next) => {
 
 
 io.on('connection', async (socket) => {
-   console.log('a user connected', socket.user._id);
+  //  console.log('a user connected', socket.user._id);
   userSocketIDs.set(socket.user._id.toString(), socket.id)
   
   
@@ -122,13 +122,13 @@ io.on('connection', async (socket) => {
   
 
   socket.on("NEW_GROUP", ({groupName,members})=>{
-    console.log("new group created", groupName, members);
+    // console.log("new group created", groupName, members);
     const membersSocketId= getSocketIds(members)
     io.to(membersSocketId).emit("NEW_GROUP",{name:groupName})
   })
 
   socket.on("disconnect",()=>{
-    console.log("user disconnected");
+    // console.log("user disconnected");
       userSocketIDs.delete(socket.user._id.toString())
 
   })
