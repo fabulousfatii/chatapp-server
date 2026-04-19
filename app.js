@@ -14,7 +14,7 @@ const { v2: cloudinary } = require('cloudinary');
 
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: process.env.MONGODB_URI,
   credentials:true
 }
 ))
@@ -43,7 +43,7 @@ const ChatModel = require('./model/chatModel');
 const server = createServer(app)
 const io = new Server(server, {
   cors: {
-  origin: "http://localhost:5173",
+  origin: process.env.MONGODB_URI,
   credentials:true
 
   
