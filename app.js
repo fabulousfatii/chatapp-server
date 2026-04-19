@@ -14,7 +14,7 @@ const { v2: cloudinary } = require('cloudinary');
 
 
 app.use(cors({
-  origin: process.env.MONGODB_URI,
+  origin: process.env.MONGODB_URI || "http://localhost:3000",
   credentials:true
 }
 ))
