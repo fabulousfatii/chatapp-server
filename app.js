@@ -14,7 +14,7 @@ const { v2: cloudinary } = require('cloudinary');
 
 
 app.use(cors({
-  origin: process.env.MONGODB_URI || "http://localhost:3000",
+  origin: ['https://chatapp-client-zeta.vercel.app', 'http://localhost:3000'] ,
   credentials:true
 }
 ))
@@ -43,7 +43,7 @@ const ChatModel = require('./model/chatModel');
 const server = createServer(app)
 const io = new Server(server, {
   cors: {
-  origin: process.env.MONGODB_URI,
+  origin: ['https://chatapp-client-zeta.vercel.app', 'http://localhost:3000'],
   credentials:true
 
   
