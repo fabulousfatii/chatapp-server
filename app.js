@@ -13,11 +13,22 @@ const { v2: cloudinary } = require('cloudinary');
 
 
 
+// app.use(cors({
+//   origin: 'https://chatapp-client-zeta.vercel.app',  
+//   credentials:true
+// }
+// ))
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://chatapp-client-zeta.vercel.app"
+];
+
 app.use(cors({
-  origin: ['https://chatapp-client-zeta.vercel.app', 'http://localhost:3000'] ,
-  credentials:true
-}
-))
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded())
 app.use(cookieParser())
@@ -43,7 +54,10 @@ const ChatModel = require('./model/chatModel');
 const server = createServer(app)
 const io = new Server(server, {
   cors: {
-  origin: ['https://chatapp-client-zeta.vercel.app', 'http://localhost:3000'],
+  origin:  [
+      "http://localhost:5173",
+      "https://chatapp-client-zeta.vercel.app"
+    ], 
   credentials:true
 
   
