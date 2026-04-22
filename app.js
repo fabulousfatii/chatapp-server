@@ -30,9 +30,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use(express.urlencoded())
-app.use(cookieParser())
-connectdb()
+app.use(express.urlencoded());
+app.use(cookieParser());
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_NAME, 
@@ -40,9 +39,8 @@ cloudinary.config({
   api_secret:  process.env.CLOUDINARY_API_SECRET
 });
 
-
-app.use("/api/users", userRouter)
-app.use("/api/chats", chatRouter)
+app.use("/api/users", userRouter);
+app.use("/api/chats", chatRouter);
 
 //require for socket.io
 const {Server} = require("socket.io");
@@ -151,10 +149,24 @@ io.on('connection', async (socket) => {
 
 
 
-server.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+connectdb().then(() => {
+  server.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}).catch((err) => {
+  console.error('Failed to connect to DB:', err);
+  process.exit(1);
+});
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
-})
+});
+
+// Global error handler - catches unhandled errors hanging requests
+app.use((err, req, res, next) => {
+  console.error('Global error handler - Unhandled error:', err.stack);
+  res.status(500).json({ 
+    message: 'Internal server error', 
+    error: process.env.NODE_ENV === 'production' ? {} : err.message 
+  });
+});

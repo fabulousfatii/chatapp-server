@@ -9,6 +9,7 @@ const RequestModel = require('../model/requestModel');
 
 async function register(req,res) {
     const {username,name,password} = req.body
+    
   const avatar = req.file
 
     // const avatar= {
@@ -35,13 +36,15 @@ async function register(req,res) {
       url: avatarData[0].url,
         publicId: avatarData[0].public_id
      }
-
+    }
        const newUser = new UserModel({
          username,
          name,
          password: bycryptydPassword,
          avatar: avatar? newAvatar : null
      })
+
+     console.log("new user",newUser)
  
      await newUser.save()
  
@@ -61,7 +64,7 @@ async function register(req,res) {
 
     
  
-   } catch (error) {
+    catch (error) {
     console.log(error)
     res.status(500).json({message:`error to register ${error}`})
     
