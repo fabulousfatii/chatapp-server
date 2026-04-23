@@ -42,10 +42,7 @@ async function register(req,res) {
          name,
          password: bycryptydPassword,
          avatar: avatar? newAvatar : null
-     })
-
-     console.log("new user",newUser)
- 
+     }) 
      await newUser.save()
  
      generateToken(res,newUser._id)
