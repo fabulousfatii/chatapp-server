@@ -28,11 +28,12 @@ async function register(req,res) {
      }
  
      const bycryptydPassword = await bcrypt.hash(password,10)
+     let newAvatar = null
 
      if(avatar){
      const avatarData= await cloudinaryFilesUpload([avatar])
 
-     const newAvatar= {
+     newAvatar= {
       url: avatarData[0].url,
         publicId: avatarData[0].public_id
      }
@@ -93,6 +94,8 @@ const { username, password } = req.body;
 
 
  function logout(req,res) {
+
+  console.log("idhr aya ")
     
     res.cookie("jwt", "", {
     httpOnly: true,
